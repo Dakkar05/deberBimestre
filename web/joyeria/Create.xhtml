@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="JoyeriaCreateDlg" widgetVar="JoyeriaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateJoyeriaTitle}">
+            <h:form id="JoyeriaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{joyeriaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateJoyeriaLabel_idJoyeria}" for="idJoyeria" />
+                        <p:inputText id="idJoyeria" value="#{joyeriaController.selected.idJoyeria}" title="#{bundle.CreateJoyeriaTitle_idJoyeria}" required="true" requiredMessage="#{bundle.CreateJoyeriaRequiredMessage_idJoyeria}"/>
+                        <p:outputLabel value="#{bundle.CreateJoyeriaLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{joyeriaController.selected.nombre}" title="#{bundle.CreateJoyeriaTitle_nombre}" required="true" requiredMessage="#{bundle.CreateJoyeriaRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.CreateJoyeriaLabel_ubicacion}" for="ubicacion" />
+                        <p:inputText id="ubicacion" value="#{joyeriaController.selected.ubicacion}" title="#{bundle.CreateJoyeriaTitle_ubicacion}" />
+                        <p:outputLabel value="#{bundle.CreateJoyeriaLabel_direccion}" for="direccion" />
+                        <p:inputText id="direccion" value="#{joyeriaController.selected.direccion}" title="#{bundle.CreateJoyeriaTitle_direccion}" />
+                        <p:outputLabel value="#{bundle.CreateJoyeriaLabel_encargado}" for="encargado" />
+                        <p:inputText id="encargado" value="#{joyeriaController.selected.encargado}" title="#{bundle.CreateJoyeriaTitle_encargado}" />
+                        <p:outputLabel value="#{bundle.CreateJoyeriaLabel_dimlocal}" for="dimlocal" />
+                        <p:inputText id="dimlocal" value="#{joyeriaController.selected.dimlocal}" title="#{bundle.CreateJoyeriaTitle_dimlocal}" />
+                        <p:outputLabel value="#{bundle.CreateJoyeriaLabel_ciudad}" for="ciudad" />
+                        <p:inputText id="ciudad" value="#{joyeriaController.selected.ciudad}" title="#{bundle.CreateJoyeriaTitle_ciudad}" required="true" requiredMessage="#{bundle.CreateJoyeriaRequiredMessage_ciudad}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{joyeriaController.create}" value="#{bundle.Save}" update="display,:JoyeriaListForm:datalist,:growl" oncomplete="handleSubmit(args,'JoyeriaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="JoyeriaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
