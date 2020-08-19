@@ -67,19 +67,23 @@ public class Joyeria implements Serializable {
     public Joyeria() {
     }
 
-    public Joyeria(Integer idJoyeria) {
-        this.idJoyeria = idJoyeria;
-    }
-
-    public Joyeria(Integer idJoyeria, String nombre, String ciudad) {
+    public Joyeria(Integer idJoyeria, String nombre, String ubicacion, String direccion, String encargado, String dimlocal, String ciudad) {
         this.idJoyeria = idJoyeria;
         this.nombre = nombre;
+        this.ubicacion = ubicacion;
+        this.direccion = direccion;
+        this.encargado = encargado;
+        this.dimlocal = dimlocal;
         this.ciudad = ciudad;
     }
 
-    public Joyeria(int idJoyeria, String nombre, String ubicacion, String direccion, String encargado, String dimlocal, String ciudad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   
+    
+
+     public Joyeria(int idJoyeria) {
+        this.idJoyeria = idJoyeria;
     }
+
 
     public Integer getIdJoyeria() {
         return idJoyeria;

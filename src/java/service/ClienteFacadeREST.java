@@ -86,8 +86,8 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
     }
     @POST
     @Path("crearCli")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public String crearCli(@FormParam("IdCliente")int IdCliente,@FormParam("Nombre")String Nombre,@FormParam("Direccion")String Direccion,@FormParam("Correo")String Correo,@FormParam("Telefono")String Telefono,@FormParam("Ciudad")String Ciudad,@FormParam("Edad")String Edad,@FormParam("joyeriaidJoyeria")String joyeriaidJoyeria){
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
+    public String crearCli(@FormParam("IdCliente")int IdCliente,@FormParam("Nombre")String Nombre,@FormParam("Direccion")String Direccion,@FormParam("Correo")String Correo,@FormParam("Telefono")String Telefono,@FormParam("Ciudad")String Ciudad,@FormParam("Edad")String Edad,@FormParam("joyeriaidJoyeria")int joyeriaidJoyeria){
     Cliente ob = new Cliente (IdCliente,Nombre,Direccion,Correo,Telefono,Ciudad,Edad,joyeriaidJoyeria);
     super.create(ob);
     return "El cliente se registro con Exito";
@@ -96,7 +96,7 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
     
     @POST
     @Path("editarcli")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
     public String editar(@FormParam("IdCliente")int IdCliente,@FormParam("Nombre")String Nombre,@FormParam("Direccion")String Direccion,@FormParam("Correo")String Correo,@FormParam("Telefono")String Telefono,@FormParam("Ciudad")String Ciudad,@FormParam("Edad")String Edad,@FormParam("joyeriaidJoyeria")int joyeriaidJoyeria){
     Cliente ob = super.find(IdCliente);
     
@@ -114,7 +114,7 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
     
     @POST
     @Path("eliminarcli")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
     public String eliminar(@FormParam("IdCliente")int IdCliente){
         Cliente ob = super.find(IdCliente);
         super.remove(ob);
@@ -122,13 +122,24 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
     }
     
     @POST
-    @Path("consulta")
+    @Path("consultajoy")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
     public List <Cliente> consulta(@FormParam("joyeriaidJoyeria")int joyeriaidJoyeria){
-        TypedQuery consulta= getEntityManager().createQuery("SELECT e FROM Estudiante e WHERE e.barrio = :barrio",Cliente.class);
+        TypedQuery consulta= getEntityManager().createQuery("SELECT c FROM Cliente c WHERE c.joyeriaidJoyeria = :joyeriaidJoyeria",Cliente.class);
         consulta.setParameter("joyeriaidJoyeria", joyeriaidJoyeria);
         return consulta.getResultList();
     }
+    
+    @POST
+    @Path("consultaedad")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
+    public List <Cliente> consultaedad (@FormParam("edad")String edad){
+        TypedQuery consulta = getEntityManager().createQuery("SELECT c FROM Cliente c WHERE c.edad >= :edad", Cliente.class);
+        consulta.setParameter("edad", edad);
+        return consulta.getResultList();
+    }
+    
+    
 
     @Override
     protected EntityManager getEntityManager() {

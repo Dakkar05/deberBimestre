@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -84,9 +85,10 @@ public class JoyeriaFacadeREST extends AbstractFacade<Joyeria> {
         return String.valueOf(super.count());
     }
     
+    
     @POST
     @Path("crearJoy")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
     public String crearJoy(@FormParam("idJoyeria")int idJoyeria,@FormParam("Nombre")String nombre,@FormParam("Ubicacion")String ubicacion,@FormParam("Direccion")String direccion,@FormParam("Encargado")String encargado,@FormParam("Dim_local")String dimlocal,@FormParam("Ciudad")String ciudad){
     Joyeria ob = new Joyeria (idJoyeria,nombre,ubicacion,direccion,encargado,dimlocal,ciudad);
     super.create(ob);
@@ -96,7 +98,7 @@ public class JoyeriaFacadeREST extends AbstractFacade<Joyeria> {
     
     @POST
     @Path("editarJoy")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
     public String editarJoy(@FormParam("idJoyeria")int idJoyeria,@FormParam("Nombre")String nombre,@FormParam("Ubicacion")String ubicacion,@FormParam("Direccion")String direccion,@FormParam("Encargado")String encargado,@FormParam("Dim_local")String dimlocal,@FormParam("Ciudad")String ciudad){
     Joyeria ob =  super.find(idJoyeria);
     ob.setNombre(nombre);
@@ -105,17 +107,26 @@ public class JoyeriaFacadeREST extends AbstractFacade<Joyeria> {
     ob.setEncargado(encargado);
     ob.setDimlocal(dimlocal);
     ob.setCiudad(ciudad);
-   
+
     return "La Joyeria se edito con Exito";
     }
-    
+
     @POST
     @Path("eliminarJoy")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
     public String eliminarJoy(@FormParam("idJoyeria")int idJoyeria){
         Joyeria ob = super.find(idJoyeria);
         super.remove(ob);
         return "la Joyeria se elimino con Exito";
+    }
+    
+    @POST
+    @Path("consultaciudad")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
+    public List <Joyeria> consultaedad (@FormParam("ciudad")String Ciudad){
+        TypedQuery consulta = getEntityManager().createQuery("SELECT j FROM Joyeria j WHERE j.ciudad = :ciudad", Joyeria.class);
+        consulta.setParameter("Ciudad", Ciudad);
+        return consulta.getResultList();
     }
 
     @Override

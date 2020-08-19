@@ -87,16 +87,7 @@ public class Cliente implements Serializable {
         this.idCliente = idCliente;
     }
 
-    public Cliente(Integer idCliente, String nombre, String ciudad, String edad) {
-        this.idCliente = idCliente;
-        this.nombre = nombre;
-        this.ciudad = ciudad;
-        this.edad = edad;
-    }
-
-    public Cliente(int IdCliente, String Nombre, String Direccion, String Correo, String Telefono, String Ciudad, String Edad, String joyeriaidJoyeria) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 
     public Integer getIdCliente() {
         return idCliente;
