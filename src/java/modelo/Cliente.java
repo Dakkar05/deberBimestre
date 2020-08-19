@@ -186,5 +186,9 @@ public class Cliente implements Serializable {
     public String toString() {
         return "modelo.Cliente[ idCliente=" + idCliente + " ]";
     }
+
+    public void setJoyeriaidJoyeria(String joyeriaidJoyeria) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

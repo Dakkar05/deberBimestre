@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -96,7 +97,7 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
     @POST
     @Path("editarcli")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public String editar(@FormParam("IdCliente")int IdCliente,@FormParam("Nombre")String Nombre,@FormParam("Direccion")String Direccion,@FormParam("Correo")String Correo,@FormParam("Telefono")String Telefono,@FormParam("Ciudad")String Ciudad,@FormParam("Edad")String Edad,@FormParam("joyeriaidJoyeria")String joyeriaidJoyeria){
+    public String editar(@FormParam("IdCliente")int IdCliente,@FormParam("Nombre")String Nombre,@FormParam("Direccion")String Direccion,@FormParam("Correo")String Correo,@FormParam("Telefono")String Telefono,@FormParam("Ciudad")String Ciudad,@FormParam("Edad")String Edad,@FormParam("joyeriaidJoyeria")int joyeriaidJoyeria){
     Cliente ob = super.find(IdCliente);
     
     ob.setNombre(Nombre);
@@ -105,7 +106,7 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
     ob.setTelefono(Telefono);
     ob.setCiudad(Ciudad);
     ob.setEdad(Edad);
-    ob.setJoyeriaidJoyeria(IdCliente);
+    ob.setJoyeriaidJoyeria(joyeriaidJoyeria);
     
     return "El cliente se edito con Exito";
     
@@ -118,6 +119,15 @@ public class ClienteFacadeREST extends AbstractFacade<Cliente> {
         Cliente ob = super.find(IdCliente);
         super.remove(ob);
         return "El cliente se elimino con Exito";
+    }
+    
+    @POST
+    @Path("consulta")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON})
+    public List <Cliente> consulta(@FormParam("joyeriaidJoyeria")int joyeriaidJoyeria){
+        TypedQuery consulta= getEntityManager().createQuery("SELECT e FROM Estudiante e WHERE e.barrio = :barrio",Cliente.class);
+        consulta.setParameter("joyeriaidJoyeria", joyeriaidJoyeria);
+        return consulta.getResultList();
     }
 
     @Override

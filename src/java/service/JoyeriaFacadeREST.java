@@ -108,6 +108,15 @@ public class JoyeriaFacadeREST extends AbstractFacade<Joyeria> {
    
     return "La Joyeria se edito con Exito";
     }
+    
+    @POST
+    @Path("eliminarJoy")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public String eliminarJoy(@FormParam("idJoyeria")int idJoyeria){
+        Joyeria ob = super.find(idJoyeria);
+        super.remove(ob);
+        return "la Joyeria se elimino con Exito";
+    }
 
     @Override
     protected EntityManager getEntityManager() {
